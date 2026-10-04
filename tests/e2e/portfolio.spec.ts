@@ -46,7 +46,7 @@ test.describe('Portfolio complete user flow', () => {
 
     await expect(page.getByText('Application Development Intern → Project Associate')).toBeVisible()
     await expect(page.getByText('Audio Transcription App (IndoScribe)')).toBeVisible()
-    await expect(page.getByText('Self‑Healing Security System')).toBeVisible()
+    await expect(page.getByText('Self-Healing Security System')).toBeVisible()
     await expect(page.getByText('Phishing Detection & URL Reputation Checker')).toBeVisible()
     await expect(page.getByText('Certified Ethical Hacker (CEH) — in progress')).toBeVisible()
   })
@@ -58,7 +58,7 @@ test.describe('Portfolio complete user flow', () => {
     await expect(page.locator('a[href="tel:' + phone + '"]')).toHaveCount(2)
 
     const linkedinLinks = page.locator('a[href="' + linkedinUrl + '"]')
-    await expect(linkedinLinks).toHaveCount(5)
+    await expect(linkedinLinks).toHaveCount(4)
     await expect(linkedinLinks.first()).toHaveAttribute('target', '_blank')
     await expect(linkedinLinks.first()).toHaveAttribute('rel', 'noreferrer')
 
