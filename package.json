@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test:e2e": "playwright test",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e": "npx playwright@1.55.0 test",
+    "test:e2e:report": "npx playwright@1.55.0 show-report"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
@@ -31,7 +31,6 @@
     "tailwindcss": "^4.2.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
-    "vite": "^6.3.5",
-    "@playwright/test": "^1.55.0"
+    "vite": "^6.3.5"
   }
 }
