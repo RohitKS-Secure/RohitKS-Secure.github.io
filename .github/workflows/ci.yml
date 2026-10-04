@@ -1,22 +1,23 @@
-name: Deploy to GitHub Pages
+name: Portfolio CI
 
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: portfolio-ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  quality:
+    name: Lint, build and functional tests
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,7 +38,7 @@ jobs:
         run: npm run build
 
       - name: Install Playwright browser
-        run: npx playwright@1.55.0 install --with-deps chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Run portfolio E2E tests
         run: npm run test:e2e
@@ -46,25 +47,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: deploy-playwright-report
+          name: playwright-report
           path: playwright-report/
           if-no-files-found: ignore
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
